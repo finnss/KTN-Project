@@ -1,5 +1,3 @@
-
-
 class MessageParser():
     def __init__(self):
 
@@ -10,15 +8,17 @@ class MessageParser():
         }
 
     def parse(self, payload):
-        payload = # decode the JSON object
+        payload = '' # decode the JSON object
 
         if payload['response'] in self.possible_responses:
             return self.possible_responses[payload['response']](payload)
         else:
             # Response not valid
+            print('Replace this')
 
     def parse_error(self, payload):
-    
+        print('Replace this')
+
     def parse_info(self, payload):
-    
-    # Include more methods for handling the different responses... 
+        # Include more methods for handling the different responses...
+        print('Replace this')
