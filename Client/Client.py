@@ -2,6 +2,7 @@
 import socket
 from .MessageReceiver import MessageReceiver
 from .MessageParser import MessageParser
+import json
 
 class Client:
     """
@@ -17,23 +18,53 @@ class Client:
         self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
         # TODO: Finish init process with necessary code
+        self.host = host
+        self.server_port = server_port
+
         self.run()
 
     def run(self):
         # Initiate the connection to the server
         self.connection.connect((self.host, self.server_port))
+        reciever = MessageReceiver(self, self.connection)
+        reciever.run()
+        while True:
+            command = input("> ")
+            if len(command.split(" ")) > 1: # It's a command with content
+
+                if command[0] == "login":
+                    raw_message = {
+                        'request': 'login',
+                        'content': command[1]
+                    }
+
+                elif command[0] == "msg":
+                    messageString = ""
+                    for i in command[1:]:
+                        messageString += i
+                    raw_message = {
+                        'request': 'msg',
+                        'content': messageString
+                    }
+            else: # It's a command without content
+                raw_message = {
+                    'request': command[0],
+                    'content': None
+                }
+            JSON_message = json.dumps(raw_message)
+            self.send_payload(JSON_message)
         
     def disconnect(self):
-        # TODO: Handle disconnection
-        pass
+        print("Bye!")
+        self.connection.close()
 
     def receive_message(self, message):
-        # TODO: Handle incoming message
-        pass
+        parser = MessageParser()
+        parsed_message = parser.parse(message)
+        print(parsed_message)
 
     def send_payload(self, data):
-        # TODO: Handle sending of a payload
-        pass
+        self.connection.sendto(data, self.host, self.server_port)
         
     # More methods may be needed!
 
