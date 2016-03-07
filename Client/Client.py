@@ -17,18 +17,30 @@ class Client:
         self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
         # TODO: Finish init process with necessary code
+        self.host = host
+        self.server_port = server_port
+
         self.run()
 
     def run(self):
         # Initiate the connection to the server
         self.connection.connect((self.host, self.server_port))
+        reciever = MessageReceiver(self, self.connection)
+        reciever.run()
+        while True:
+            command = input("> ")
+            if command == 
         
     def disconnect(self):
         # TODO: Handle disconnection
+        self.connection.close()
         pass
 
     def receive_message(self, message):
         # TODO: Handle incoming message
+        parser = MessageParser()
+        parsed_message = parser.parse(message)
+        print(parsed_message)
         pass
 
     def send_payload(self, data):
