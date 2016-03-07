@@ -1,4 +1,6 @@
 import json
+
+
 class MessageParser():
     def __init__(self):
 
@@ -12,7 +14,7 @@ class MessageParser():
         }
 
     def parse(self, payload):
-        payload = json.loads(payload) # decode the JSON object
+        payload = json.loads(payload.decode("utf-8")) # decode the JSON object
 
         if payload['response'] in self.possible_responses:
             return self.possible_responses[payload['response']](payload)
@@ -29,7 +31,7 @@ class MessageParser():
         return ''.join(setning)
 
     def parse_message(self, payload):
-        setning= "Message sent: ", payload["timestamp"], "\nMessage from user ", payload['sender'],":\n", payload["content"],"\n"
+        setning= "[",payload["timestamp"],"] Message from ", payload['sender'], ":\n", payload["content"],"\n"
         return ''.join(setning)
 
     def parse_history(self, payload):

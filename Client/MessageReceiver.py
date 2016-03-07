@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from threading import Thread
 
+
 class MessageReceiver(Thread):
     """
     This is the message receiver class. The class inherits Thread, something that
@@ -14,10 +15,8 @@ class MessageReceiver(Thread):
         """
 
         # Flag to run thread as a deamon
+        Thread.__init__(self)
         self.daemon = True
-        
-
-        # TODO: Finish initialization of MessageReceiver
         self.client = client
         self.connection = connection
 
@@ -25,5 +24,8 @@ class MessageReceiver(Thread):
         # TODO: Make MessageReceiver receive and handle payloads
         while True:
             rawMessage = self.connection.recv(1024)
-            client.recieve_message(rawMessage)
+            if not rawMessage:
+                break
+            else:
+                self.client.receive_message(rawMessage)
             
