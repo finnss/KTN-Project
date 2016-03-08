@@ -88,5 +88,6 @@ if __name__ == '__main__':
 
     No alterations are necessary
     """
+    ip = input("Which IP do you want to connect to?")
     print('Client is running...')
-    client = Client('localhost', 9998)
+    client = Client(ip, 9998)
