@@ -74,7 +74,7 @@ class ClientHandler(socketserver.BaseRequestHandler):
         names = []
         for username in clients:
             names.append(username)
-        strigToReturn = 'All users in this channel: ', names
+        strigToReturn = 'All users in this channel: ' + str(names)
         self.send_response('server', 'info', strigToReturn, False)
 
     def help(self):
@@ -146,7 +146,7 @@ if __name__ == "__main__":
 
     No alterations are necessary
     """
-    HOST, PORT = 'localhost', 9998
+    HOST, PORT = '78.91.69.136', 9998
     print('Server running...')
 
     # Set up and initiate the TCP server
