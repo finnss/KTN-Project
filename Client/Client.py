@@ -90,4 +90,4 @@ if __name__ == '__main__':
     """
     ip = input("Which IP do you want to connect to?")
     print('Client is running...')
-    client = Client(ip, 9998)
+    client = Client(ip, 30000)

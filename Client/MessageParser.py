@@ -23,17 +23,17 @@ class MessageParser():
             print('Response not valid')
 
     def parse_error(self, payload):
-        setning = "Message from Server: \nThe following error has been encountered: ", payload["content"], "\n"
-        return ''.join(setning)
+        setning = "Message from Server: \nThe following error has been encountered: " + str(payload["content"]) + "\n"
+        return setning
 
     def parse_info(self, payload):
-        setning = payload["content"], "\n"
-        return ''.join(setning)
+        setning = str(payload["content"]) + "\n"
+        return setning
 
     def parse_message(self, payload):
-        setning= "[",payload["timestamp"],"] Message from ", payload['sender'], ":\n", payload["content"],"\n"
-        return ''.join(setning)
+        setning= "[" + str(payload["timestamp"]) + "] Message from " + str(payload['sender']) + ":\n" + str(payload["content"]) +"\n"
+        return setning
 
     def parse_history(self, payload):
-        setning= "All previous messages in this chat: \n", payload["content"], "\n"
-        return ''.join(setning)
+        setning= "All previous messages in this chat: \n" + str(payload["content"]) + "\n"
+        return setning
